@@ -1,5 +1,72 @@
 {
-  "sessions": [],
-  "preferences": {},
-  "decision_log": []
+  "sessions": [
+    {
+      "date": "2026-10-01",
+      "skills_used": ["setup", "discover"],
+      "summary": "Ingested CCF High Level Requirements, discovery interview transcript (briefed), EOI/Full Application forms, brand assets, and the org-wide Health Assessment. Produced the Discovery Brief covering the Community Care Fund rebuild.",
+      "friction": [
+        "Org Health Assessment and EOI/Application PDFs were image-only (scanned slide exports) requiring poppler/pdftoppm install for page-image extraction.",
+        "WebSearch tool unavailable in this environment (Bedrock/Vertex policy blocks it) — research relied on central KB plus model knowledge, flagged as unverified where appropriate."
+      ],
+      "decisions": [
+        {
+          "decision": "Scope this engagement to the Community Care Fund rebuild only; the separate 45-finding Org Health Assessment is current-state context for design, not in-scope remediation work.",
+          "rationale": "Client confirmed; the two documents are distinct workstreams from different dates with no cross-reference in the interview.",
+          "rejected": ["Bundling selected high-priority Health Assessment fixes into CCF scope"]
+        },
+        {
+          "decision": "Defined 'special project' exception policy is a client-owned decision (Rachel + Legal), not Salesforce build scope — Salesforce only provides enforcement/audit structure once the policy exists.",
+          "rationale": "Client explicitly chose this framing over having Scopezilla help define the policy itself.",
+          "rejected": ["Treating the policy definition itself as in-scope gap analysis"]
+        },
+        {
+          "decision": "Treated the CCF High Level Requirements workbook as mostly as-built (current implementation) with some forward gaps (e.g. REQ-30 'Funded – Payment Held'), not a greenfield to-be spec.",
+          "rationale": "Client confirmed CCF already runs on Salesforce today.",
+          "rejected": ["Treating HLR as a target/to-be spec requiring net-new build throughout"]
+        }
+      ],
+      "open_threads": [
+        "Panel cadence discrepancy: interview says quarterly, EOI form says twice-yearly (March/September) — client leans toward the form being accurate but wants it flagged as a question for the coach/client to formally confirm.",
+        "Website-to-case-creation automation mechanics for the ~60% web-form intake path are undocumented.",
+        "AP-owned EFT/payment gateway platform identity is unknown.",
+        "No data migration volumes or requirements discussed yet.",
+        "No Salesforce project budget/rate has been discussed or validated (board commitment is to the CCF program itself, not a SF project budget).",
+        "PII/data-residency requirements for payment details not discussed.",
+        "Geoscape confirmed by client as the likely tool CMLs use for the 2km boundary check, but not independently verified against the CML's actual mapping tool."
+      ],
+      "next_steps": [
+        "Run requirements to define epics and gap analysis for the CCF rebuild.",
+        "Consider a targeted KB/architecture query on SAP-to-Salesforce disbursement integration patterns before design.",
+        "Confirm panel cadence, payment gateway identity, and Geoscape assumption directly with Rachel Doyle."
+      ]
+    }
+  ],
+  "preferences": {
+    "terminology": {
+      "CCF": "Community Care Fund — the grant program being rebuilt",
+      "CML": "Community Marketing Lead — the 4 regional staff who triage eligibility and chase applications",
+      "EOI": "Expression of Interest — Stage 1 of the two-stage CCF application process",
+      "two-kilometre rule": "Eligibility criterion requiring a project be within 2km of a Northwind Grid asset (substation, transmission corridor)",
+      "special project": "An undocumented, Head-of-Communications-discretion exception allowing re-application within 2 years of prior funding",
+      "panel": "The 11-person approval body (6 internal, 5 external) that reviews grants over $50K",
+      "DigiTech": "Northwind Grid's existing Salesforce implementation partner"
+    },
+    "audience_default": null
+  },
+  "decision_log": [
+    {
+      "date": "2026-10-01",
+      "area": "scope",
+      "decision": "CCF rebuild only — Org Health Assessment findings are design context, not in-scope deliverables.",
+      "rationale": "Confirmed by client; the assessment covers the whole platform while this engagement targets one program.",
+      "rejected": ["CCF + selected remediation bundle"]
+    },
+    {
+      "date": "2026-10-01",
+      "area": "scope",
+      "decision": "'Special project' exception policy definition is deferred to the client (Rachel + Legal); Salesforce builds enforcement/audit structure only once that policy exists.",
+      "rationale": "Client chose this over having Scopezilla help define the policy during gap analysis.",
+      "rejected": ["Treating policy definition as in-scope gap-analysis work"]
+    }
+  ]
 }

@@ -9,7 +9,7 @@
   "layout_version": 2,
   "completion_status": {
     "tutorial": "not-started",
-    "discover": "not-started",
+    "discover": "complete",
     "strategy": "not-started",
     "requirements": "not-started",
     "design": "not-started",
@@ -27,7 +27,11 @@
     "illuminate": "not-started"
   },
   "timeline": {
-    "client_target": null,
+    "client_target": {
+      "value": "Board-approved growth to ~1,000 applications/year by 2028 (no fixed Salesforce go-live date set)",
+      "source": "Discovery Interview - Head of Comms, 12 Jun 2026",
+      "note": "Business growth target driving urgency, not a committed project delivery date"
+    },
     "user_commitment": null
   },
   "salesforce_link": {
@@ -39,6 +43,6 @@
     "dsr_url": null,
     "account_name": null,
     "linked_at": null,
-    "last_nudged_at": null
+    "last_nudged_at": "2026-10-01"
   }
 }
