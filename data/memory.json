@@ -96,6 +96,20 @@
         "Run design to produce the architecture and T-shirt estimates for these epics once Phase 0 (or client confirmation on the key conflicts) lands.",
         "Say 'generate clarification questions' to turn gaps.json into a client-facing question list for the Discovery Brief's Open Questions section."
       ]
+    },
+    {
+      "date": "2026-10-02",
+      "skills_used": ["requirements"],
+      "summary": "Turned all 79 gaps.json entries into client-facing questions, written into outputs/00-discovery-brief.md's Open Questions section (grouped: 8 source conflicts first, then missing requirements, ambiguities, risks, capability questions, assumptions, plus the 3 pre-existing non-requirements open items). Also stripped internal [KA-XXXX] provenance tags found in the brief's Research Findings section (pre-existing, from an earlier session) per the no-internal-provenance rule.",
+      "friction": [
+        "validate-data.py flagged 13 pricing-leak false positives in the brief -- all are client business dollar figures (grant amounts, $50K/$100K review thresholds) from discovery, not invented Salesforce engagement pricing. Judged non-blocking and proceeded; noted for awareness."
+      ],
+      "decisions": [],
+      "open_threads": [],
+      "next_steps": [
+        "Send the Open Questions section to Rachel Doyle for the 8 source conflicts especially -- these are load-bearing to sizing.",
+        "Run design once the client has resolved or consciously deferred the key conflicts."
+      ]
     }
   ],
   "preferences": {
