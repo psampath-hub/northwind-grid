@@ -1,0 +1,44 @@
+[
+  {
+    "epic_id": "E01",
+    "epic_name": "Intake & Case Creation",
+    "description": "Capture Expressions of Interest via the public web form or email, create cases, and triage them to a Community Marketing Lead.",
+    "confidence": "Confirmed",
+    "kb_sources": []
+  },
+  {
+    "epic_id": "E02",
+    "epic_name": "Eligibility Screening",
+    "description": "Assess EOIs against the 2km-of-asset rule and the 2-year re-application policy (including the special-project exception), and set eligibility status. The precise 2-year rule wording (funded vs. submitted) is a documented source conflict -- see G0201 -- and this epic's scope is deliberately neutral on it pending client confirmation.",
+    "confidence": "Assumed",
+    "kb_sources": ["[assumption: Geoscape confirmed as the CML's current mapping tool for the 2km boundary check, pending independent verification]"]
+  },
+  {
+    "epic_id": "E03",
+    "epic_name": "Full Application Capture",
+    "description": "Invite eligible applicants to submit a Full Application with supporting documentation once their EOI is accepted.",
+    "confidence": "Confirmed",
+    "kb_sources": []
+  },
+  {
+    "epic_id": "E04",
+    "epic_name": "Review & Panel Decisioning",
+    "description": "CML/Head-of-Communications assessment for applications under $50K; panel scoring, discussion, and decision for applications over $50K, including a review workspace for the 5 external panellists who currently lack Salesforce logins.",
+    "confidence": "Assumed",
+    "kb_sources": ["[assumption: Experience Cloud login-based licensing fits the external panellists' review cadence -- validate panellist login frequency against the specific license model before costing]"]
+  },
+  {
+    "epic_id": "E05",
+    "epic_name": "Grant Disbursement",
+    "description": "Initiate disbursement, validate and exchange vendor/payment data with SAP to eliminate duplicate vendor setup, and track settlement outcomes including a genuine 'Funded - Payment Held' state.",
+    "confidence": "Assumed",
+    "kb_sources": ["[assumption: AP-owned EFT/payment gateway identity and integration surface are unconfirmed -- open question in the Discovery Brief]"]
+  },
+  {
+    "epic_id": "E06",
+    "epic_name": "Post-Funding Audit Tracking",
+    "description": "Automated tracking of the 2-year post-funding audit-report due date, recipient chasing, and escalation to a CML and then the Head of Communications, replacing the current manual calendar reminder.",
+    "confidence": "Assumed",
+    "kb_sources": []
+  }
+]
