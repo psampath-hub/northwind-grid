@@ -21,6 +21,7 @@ Northwind Grid's broader Salesforce platform (migrated from Microsoft Dynamics, 
 **Current state.** The CCF process already runs substantially on Salesforce (per the High Level Requirements workbook, treated as the as-built spec with known gaps): applicants submit an Expression of Interest via a public web form or email; cases are created and manually triaged to one of 4 Community Marketing Leads (CMLs); eligibility is checked against a 2km-of-asset rule (manually, against a separate — likely Geoscape — mapping tool, with no boundary layer in the CRM); eligible applicants submit a Full Application; applications under $50K are decided by the CML/Head of Communications, while applications over $50K go to an 11-person panel (6 internal, 5 external) that meets twice a year (March and September, per the application form — the interview described this as quarterly, a discrepancy worth confirming with the client); approved grants are disbursed via a manual, duplicated SAP vendor-setup process; and recipients are expected to submit post-funding audit reports within two years, chased via a manual calendar reminder.
 
 **Target state — Rachel Doyle's (Head of Communications) three stated priorities:**
+
 1. **Integrated vendor setup** — Salesforce and SAP exchanging validated entity-name and bank-detail data, eliminating the duplicate manual setup that causes ~1/3 of applications to bounce on entity-name mismatches and adds 3+ weeks to disbursement.
 2. **Real audit tracking** — a system-driven mechanism that knows when a grant was paid, tracks when the audit report is due, chases the recipient automatically, and escalates to a CML and then to Rachel if overdue (replacing a manual calendar reminder that is already producing an estimated ~20% late/missing rate).
 3. **Panel scoring integrity** — an immutable record of who scored what and when, with no undetected post-decision edits — both a compliance requirement (the current field just overwrites, destroying prior values) and a fairness requirement.
@@ -35,7 +36,9 @@ Additional implied needs surfaced in discovery (not yet explicitly scoped): valu
 
 **Explicitly deferred (client-owned policy decision):** formally defining what qualifies as a "special project" exception. Today this is undocumented, held in Rachel's personal, unshared document, and was applied inconsistently by an acting director during her leave. This is a business/policy decision for Rachel and Legal to resolve — Salesforce's role is to provide the structure (criteria fields, approval workflow, logged rationale) once that policy exists, not to define the policy itself.
 
-## Users and Roles
+## Users and Roles 
+
+/notes: some grounding issue on this
 
 - **Rachel Doyle** — Head of Communications; CCF business owner; sole decision-maker on "special project" exceptions; reviews reassigned cases.
 - **4 Community Marketing Leads (CMLs)** — 3 Melbourne, 1 Perth; handle eligibility checks and application chasing; two were on medical leave during last year's volume spike.

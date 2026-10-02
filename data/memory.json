@@ -39,6 +39,30 @@
         "Consider a targeted KB/architecture query on SAP-to-Salesforce disbursement integration patterns before design.",
         "Confirm panel cadence, payment gateway identity, and Geoscape assumption directly with Rachel Doyle."
       ]
+    },
+    {
+      "date": "2026-10-02",
+      "skills_used": ["strategy"],
+      "summary": "Full strategy run -- strategic context, approved vision statement, and business case for the CCF rebuild. Skipped research (Discovery Brief already carried sufficient client-specific detail).",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Approved vision: 'By the time the Community Care Fund reaches 1,000 applications a year, every eligibility decision, panel score, and audit follow-up is defensible on demand -- and a recipient gets paid without the SAP paperwork round-trip that costs weeks today.'",
+          "rationale": "Approved as drafted, no wordsmithing requested.",
+          "rejected": []
+        },
+        {
+          "decision": "Revised the initial 4th strategic priority (platform scale-readiness) out of the ranked list and replaced it with 'give external panellists a proper review workspace' -- scale-readiness was an outcome-level framing already captured in the vision and current-state challenges, not a peer-level fix.",
+          "rationale": "User asked to focus on strategic priorities before approving; caught a mixed-abstraction-level list on self-review (MECE constraint) and fixed it before presenting.",
+          "rejected": ["Keeping platform scale-readiness as a 4th ranked priority alongside the three specific gap-closures"]
+        }
+      ],
+      "open_threads": [
+        "Noticed an unexplained stray line ('/notes: some grounding issue on this') under Users and Roles in outputs/00-discovery-brief.md that wasn't authored by this session -- flagged to the user, left untouched pending their direction."
+      ],
+      "next_steps": [
+        "Run requirements to define epics grounded in this strategy."
+      ]
     }
   ],
   "preferences": {

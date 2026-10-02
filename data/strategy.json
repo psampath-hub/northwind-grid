@@ -1,0 +1,66 @@
+{
+  "strategic_context": {
+    "current_state_challenges": [
+      {"challenge": "Eligibility checks against the 2km-of-asset rule are manual, run against a separate mapping tool with no boundary layer in the CRM; this accounts for an estimated 40% of eligibility disputes.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "No integration between Salesforce and SAP for vendor/payment setup; recipients are set up twice, and an estimated 1/3 of applications bounce on entity-name mismatches between the applicant-entered name and the ATO/ABN register.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Panel scores are editable in Salesforce after the panel meeting with no change history — a field overwrite destroys the prior value, so a post-decision adjustment leaves no trace.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "The 'special project' exception to the 2-year re-application rule has no formal definition; it is tracked only in the Head of Communications' personal, unshared document and was applied inconsistently by an acting director during her leave.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Payment-gateway outcomes (settled/failed) do not flow back to Salesforce; a case can show 'Funded' for weeks after a payment has actually bounced.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Audit-report follow-up relies on a manual calendar reminder and a monthly report; an estimated 20% of audit reports are late or missing, and a recent compliance review could not fully account for 5 years of audit status.", "source": "discovery", "confidence": "Assumed", "note": "20% figure is Rachel's estimate, not system-verified"},
+      {"challenge": "5 of 11 approval-panel members lack Salesforce logins and score via spreadsheet; scores are manually transcribed into the CRM before each panel meeting, costing an estimated 40 hours/year.", "source": "discovery", "confidence": "Confirmed"},
+      {"challenge": "Application volume has grown roughly 8x since 2019 (50/yr to ~400/yr) and the board has approved a further ~2.5x increase to ~1,000/yr by 2028, with no process maturity change to match.", "source": "discovery", "confidence": "Confirmed"}
+    ],
+    "business_impacts": [
+      {"impact": "No defensible record exists for special-project overrides or panel-scoring decisions, creating regulatory and reputational exposure (anticipated Senate estimates scrutiny; two missed ministerial SLAs, one escalated to the CEO).", "affected_area": "Regulatory / reputational", "severity": "high"},
+      {"impact": "End-to-end disbursement for large grants takes 6-8 weeks against a recipient expectation of about a week, spending the goodwill built by approving the grant on payment-processing friction.", "affected_area": "Disbursement delay", "severity": "high"},
+      {"impact": "Manual panel-score transcription and MP-escalation briefing-note assembly consume real staff time (~40 hrs/year panel data entry; ~15% of a Senior Advisor's time).", "affected_area": "Operational cost", "severity": "medium"},
+      {"impact": "Community Marketing Leads are already straining at current volume (two on medical leave during last year's spike); the process has no slack to absorb the board-approved growth to 1,000 applications/year.", "affected_area": "Staff strain", "severity": "medium"}
+    ],
+    "industry_context": {
+      "summary": "Northwind Grid operates its community grant program under increasing regulator scrutiny of how it disburses funds near its infrastructure -- a social-licence pressure specific to a state-owned utility rather than a competitive dynamic.",
+      "trends": ["General pattern across Australian network utilities of community-benefit-sharing programs tied to infrastructure proximity, under growing governance and audit-trail expectations -- unverified against a primary regulatory source this session."],
+      "regulatory_factors": ["Regulator has explicitly asked for 'evidence of monitoring' on audit-report follow-up; the organisation could not fully account for 5 years of status.", "Potential Senate estimates exposure on the basis for funding decisions."],
+      "competitive_pressures": []
+    },
+    "value_drivers": [
+      {"driver": "Eliminate duplicate SAP vendor setup", "category": "efficiency", "description": "Removes an estimated 3+ weeks from the disbursement cycle and the entity-name mismatch bounce-back loop."},
+      {"driver": "Eliminate manual panel-score transcription", "category": "efficiency", "description": "Removes the ~40 hours/year spent moving spreadsheet scores into the CRM before each panel meeting."},
+      {"driver": "Defensible audit trail for overrides and scores", "category": "risk", "description": "Closes the specific compliance gap the regulator has already flagged in writing, and gives Rachel an answerable record for special-project decisions."},
+      {"driver": "Real payment-status visibility", "category": "experience", "description": "Replaces a 3-week discovery lag (recipient calls to report a bounced payment) with a status Salesforce already knows."},
+      {"driver": "A proper review workspace for external panellists", "category": "experience", "description": "Replaces the spreadsheet-and-manual-transcription workaround for the 5 of 11 panellists without Salesforce logins."}
+    ],
+    "strategic_priorities": [
+      {"priority": "Close the Salesforce-SAP vendor-integration gap", "rank": 1, "rationale": "Rachel's #1 stated priority and the single highest-cost fix: 3+ weeks of disbursement delay and ~1/3 of applications bouncing on entity-name mismatches."},
+      {"priority": "Build real audit tracking", "rank": 2, "rationale": "Closes the specific compliance gap the regulator has already called out in writing; the current manual process cannot answer 'evidence of monitoring' requests.", "audience": "Head of Communications"},
+      {"priority": "Establish panel-scoring integrity", "rank": 3, "rationale": "A compliance and fairness requirement with no technical blocker to solving it -- the cheapest fix to deliver real governance value."},
+      {"priority": "Give external panellists a proper review workspace", "rank": 4, "rationale": "Replaces the spreadsheet workaround for the 5 of 11 panellists without Salesforce logins, removing the manual transcription step entirely.", "audience": "External approval-panel members"}
+    ]
+  },
+  "transformation_strategy": {
+    "vision_statement": "By the time the Community Care Fund reaches 1,000 applications a year, every eligibility decision, panel score, and audit follow-up is defensible on demand -- and a recipient gets paid without the SAP paperwork round-trip that costs weeks today.",
+    "strategic_objectives": [
+      {"objective": "Eliminate duplicate vendor setup", "success_criteria": "Entity name and bank details are validated once in Salesforce and flow to SAP without manual re-entry; the mismatch bounce-back rate drops from ~1/3 toward zero.", "timeline_horizon": "short"},
+      {"objective": "Audit tracking runs itself", "success_criteria": "The system tracks the 2-year due date per grant, chases the recipient automatically, and escalates to a CML and then to Rachel on schedule -- no manual calendar reminder.", "timeline_horizon": "medium"},
+      {"objective": "Panel scoring is tamper-evident", "success_criteria": "Every score change is logged with who changed it and when; no field overwrite destroys a prior value.", "timeline_horizon": "short"},
+      {"objective": "External panellists work inside Salesforce", "success_criteria": "All 11 panellists score through one system; the manual spreadsheet-transcription step is gone.", "timeline_horizon": "medium"},
+      {"objective": "The process holds at 1,000 applications/year", "success_criteria": "No manual bottleneck that broke at 400 applications/year (CML triage, panel-score entry, audit chasing) is still manual at 1,000/year.", "timeline_horizon": "long"}
+    ],
+    "principles": [
+      {"principle": "Every funding decision leaves a record", "rationale": "Eligibility outcomes, special-project exceptions, and panel scores are logged with reasoning, not just an outcome -- directly answers the regulator's 'evidence of monitoring' ask."},
+      {"principle": "External reviewers work inside the platform", "rationale": "No spreadsheet round-trips for people without a Salesforce seat; licensing exists for exactly this pattern."},
+      {"principle": "Fix the system, not just the policy", "rationale": "Salesforce builds the enforcement and audit structure; Rachel and Legal own defining the 'special project' policy itself -- the client's explicit choice."},
+      {"principle": "Configure before customize", "rationale": "Lean on standard Salesforce grantmaking patterns rather than bespoke build, consistent with the platform-health recommendations already on file for this org."}
+    ]
+  },
+  "business_case": {
+    "why_salesforce": "The Community Care Fund already runs on Salesforce, so this extends a live platform rather than introducing a new one. The three priority fixes map to standard, proven patterns: a validated Salesforce-to-SAP data exchange for vendor setup, field history tracking for tamper-evident panel scoring, and an Experience Cloud reviewer workspace with login-based licensing for the external panellists who currently work from a spreadsheet.",
+    "why_now": "The board has already approved doubling fund volume by 2028, and the current manual processes are failing at today's lower volume -- two Community Marketing Leads went on medical leave during last year's spike, two ministerial deadlines were missed, and the regulator has already flagged the audit-tracking gap in writing. Every quarter without a defensible special-project and panel-scoring record is a quarter the organisation can't yet answer a Senate estimates question.",
+    "expected_outcomes": [
+      {"outcome": "Shorter disbursement cycle time by removing the duplicate SAP vendor-setup round-trip", "category": "efficiency", "timeframe": "short-term"},
+      {"outcome": "Audit-report compliance demonstrable on demand instead of requiring a multi-day manual reconstruction", "category": "risk", "timeframe": "medium-term"},
+      {"outcome": "Panel-scoring data integrity enforced by the platform rather than personal diligence", "category": "risk", "timeframe": "short-term"},
+      {"outcome": "External panellists score directly in the system, eliminating the annual manual-transcription effort", "category": "experience", "timeframe": "medium-term"}
+    ],
+    "differentiation": "Not yet applicable -- no named delivery team, methodology, or partnership tier has been discussed in this engagement."
+  }
+}
