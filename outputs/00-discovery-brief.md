@@ -36,9 +36,7 @@ Additional implied needs surfaced in discovery (not yet explicitly scoped): valu
 
 **Explicitly deferred (client-owned policy decision):** formally defining what qualifies as a "special project" exception. Today this is undocumented, held in Rachel's personal, unshared document, and was applied inconsistently by an acting director during her leave. This is a business/policy decision for Rachel and Legal to resolve — Salesforce's role is to provide the structure (criteria fields, approval workflow, logged rationale) once that policy exists, not to define the policy itself.
 
-## Users and Roles 
-
-/notes: some grounding issue on this
+## Users and Roles
 
 - **Rachel Doyle** — Head of Communications; CCF business owner; sole decision-maker on "special project" exceptions; reviews reassigned cases.
 - **4 Community Marketing Leads (CMLs)** — 3 Melbourne, 1 Perth; handle eligibility checks and application chasing; two were on medical leave during last year's volume spike.
