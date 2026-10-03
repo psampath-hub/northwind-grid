@@ -110,6 +110,35 @@
         "Send the Open Questions section to Rachel Doyle for the 8 source conflicts especially -- these are load-bearing to sizing.",
         "Run design once the client has resolved or consciously deferred the key conflicts."
       ]
+    },
+    {
+      "date": "2026-10-03",
+      "skills_used": ["design"],
+      "summary": "Produced the architecture skeleton and T-shirt estimates for all 6 epics, saved to outputs/01-solution.md and data/estimates.json. Base pattern: Public Sector Grantmaking module (Platform + Experience Cloud). Ran targeted central-KB searches for the two gaps the earlier requirements pass left ungrounded (ABN/registry validation, 2km polygon boundary pattern) -- both confirmed genuinely ungrounded (no on-point atom on an in-scope cloud) rather than assumed covered.",
+      "friction": [
+        "validate-data.py again flagged a pricing-leak false positive in 01-solution.md (the client's own $50K panel-routing threshold) -- same judgment as the prior session, non-blocking."
+      ],
+      "decisions": [
+        {
+          "decision": "Adopted Public Sector Grantmaking (Platform + Experience Cloud) as the base architecture pattern, flagged as a licensing decision the client needs to confirm since the org doesn't have this module provisioned today.",
+          "rationale": "Standard Salesforce fit for the full grant lifecycle (intake, review, award, disbursement, progress reporting), grounded via KA-9728.",
+          "rejected": []
+        },
+        {
+          "decision": "Recommended a validation-rule/Flow lock on panel scores that resolves the editability source conflict (G0406) regardless of which reading the client confirms -- both readings agree a score shouldn't change after the decision point, they only disagree on when that point is.",
+          "rationale": "Lets the architecture proceed without waiting on G0406's resolution, since the mechanism is correct either way; only the exact trigger point still needs confirming.",
+          "rejected": ["Waiting on G0406 resolution before designing any score-integrity mechanism"]
+        }
+      ],
+      "open_threads": [
+        "E05 (Grant Disbursement) sized XL with Unknown confidence -- the integration topology (Salesforce-to-gateway vs. Salesforce-to-SAP-only) and payment gateway identity are both unresolved and this is the single largest open risk in the engagement.",
+        "3 new load-bearing assumptions persisted to gaps.json (G0114, G0115, G0417): Public Sector Grantmaking licensing, Experience Cloud guest-user baseline, and the panel-score lock trigger point.",
+        "T-shirt distribution: 1 XL (E05), 1 L (E04), 4 M (E01, E02, E03, E06)."
+      ],
+      "next_steps": [
+        "Run roadmap to phase the epics and derive a top-down duration range.",
+        "Resolve E05's integration topology and gateway identity before this size can be finalized with confidence."
+      ]
     }
   ],
   "preferences": {

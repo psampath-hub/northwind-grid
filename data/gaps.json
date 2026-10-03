@@ -472,5 +472,23 @@
     "category": "Capability Gap",
     "gap_or_question": "The org has no time-based automation wired to the Case object for a multi-year due-date clock with tiered escalation -- the HLR doesn't specify a mechanism, and today's enforcement is a human calendar reminder plus a manually-run monthly report.",
     "impact_or_notes": "Architecture fork for design, not yet resolved: SLA Policies/Entitlement Milestones [KA-4590/KA-4033] or Case Escalation Rules [KA-4456] are standard options; the central-KB Public Sector Grantmaking overview [KA-9728] separately confirms 'Manage Grant Recipient Progress Reports' as the grantmaking-specific pattern. No atom resolves which fits a 2-year horizon best -- flag for design to pick a mechanism rather than defaulting to a custom scheduled Flow/Apex batch."
+  },
+  {
+    "gap_id": "G0114",
+    "category": "Assumption",
+    "gap_or_question": "Design assumes adopting the Public Sector Grantmaking module (Platform + Experience Cloud) as the base architecture pattern, since it is the standard Salesforce fit for this exact lifecycle. The org's current footprint (Platform, Marketing Cloud, Data 360) does not show this module provisioned today -- it would be a new license/module decision for Northwind Grid to confirm, not an assumption design can make unilaterally.",
+    "impact_or_notes": "[assumption: Public Sector Grantmaking module availability and licensing -- confirm with Northwind Grid before this becomes a committed architecture foundation, since several epic-level design choices (Form Framework, Grantmaking Experience Cloud site) build on this base.] Would validate via a licensing conversation with the client's Salesforce account team."
+  },
+  {
+    "gap_id": "G0115",
+    "category": "Assumption",
+    "gap_or_question": "Design assumes a standard, tightly-locked Experience Cloud guest-user baseline for the public-facing EOI and Full Application forms (no guest access beyond form submission), consistent with best practice for an unauthenticated public applicant flow.",
+    "impact_or_notes": "[assumption: standard Experience Cloud guest-user security baseline -- would validate via a security review once the Experience Cloud site is scoped, especially given the sensitivity of data captured later in the flow (bank details, ABNs).]"
+  },
+  {
+    "gap_id": "G0417",
+    "category": "Assumption",
+    "gap_or_question": "Design proposes a validation-rule/Flow lock that blocks panel-score edits once a case reaches its final decision stage, as a mechanism that resolves G0406's editability conflict regardless of which reading (editable-until-decision vs. immutable) the client confirms -- both readings agree a score shouldn't change after the decision point, they only disagree on when that point is. The exact lock trigger (case status change, a specific field, panel sign-off) still needs client confirmation.",
+    "impact_or_notes": "[assumption: lock-after-decision mechanism and trigger point -- validate by confirming with Rachel/Legal exactly which case-status transition should trigger the lock, once G0406 itself is resolved.]"
   }
 ]

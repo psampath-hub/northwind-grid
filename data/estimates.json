@@ -1,0 +1,96 @@
+[
+  {
+    "item_id": "E01",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "automation": {"tier": "M", "signal": "Email-to-Case plus Form Framework intake, Omni-Channel capacity routing, and cross-channel de-duplication logic -- roughly 15-25 hybrid declarative automations [KA-4377]."},
+      "ui": {"tier": "M", "signal": "Experience Cloud site on Form Framework/OmniStudio standard components, no custom LWC [KA-9719]."},
+      "data_model": {"tier": "S", "signal": "No new objects -- Case remains the backbone object."}
+    },
+    "size_rationale": "M -- driven by automation density (routing + cross-channel de-dup) and the Experience Cloud intake UI; data model stays simple.",
+    "complexity_drivers": "Dual-channel intake reconciliation (web form + email) with no deterministic de-dup rule defined yet; routing needs to hold up under seasonal spike volume.",
+    "skills_needed": "Salesforce admin/declarative developer, Experience Cloud configuration.",
+    "risks": "Email-vs-web intake split mechanics are undocumented (open question); de-dup rule across channels not yet defined.",
+    "confidence": "Assumed",
+    "solution_approach": "Email-to-Case + Form Framework/Experience Cloud for web intake, both funneling into Case; Omni-Channel capacity-based routing for CML assignment."
+  },
+  {
+    "item_id": "E02",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "automation": {"tier": "M", "signal": "Native GEOLOCATION/DISTANCE proximity check plus multi-criteria eligibility evaluation and status transitions [KA-14019]."},
+      "integration": {"tier": "n/a", "signal": "Phase 1 uses a native platform check, no external callout; a Geoscape polygon integration would only apply if Phase 2 is triggered."}
+    },
+    "size_rationale": "M -- the native geolocation check keeps this out of integration territory, but the unresolved 2-year rule wording (funded vs. submitted) means the automation must be built flexibly pending client confirmation.",
+    "complexity_drivers": "Two conflicting eligibility-rule readings in the source documents; case-to-Contact linking (E01) is non-deterministic, risking missed repeat-applicant detection.",
+    "skills_needed": "Salesforce admin/declarative developer.",
+    "risks": "Funded-vs-submitted 2-year rule conflict unresolved; Geoscape identity as the CML's current tool unverified; point-radius precision may prove insufficient for corridor-shaped assets.",
+    "confidence": "Assumed",
+    "size_if_assumption_breaks": "M; L if the client requires true polygon/boundary-layer precision (Phase 2 Geoscape integration) rather than point-radius."
+  },
+  {
+    "item_id": "E03",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "data_model": {"tier": "S", "signal": "One new related record for co-applicant linkage; no junction objects."},
+      "automation": {"tier": "M", "signal": "OmniStudio conditional branching (GST status, amount-changed-since-EOI reconciliation) and document-checklist enforcement [KA-9655]."},
+      "ui": {"tier": "M", "signal": "Multi-section Form Framework application with conditional fields, no custom LWC."}
+    },
+    "size_rationale": "M -- real conditional-field complexity (GST branching, amount reconciliation, document checklist) but no custom code required.",
+    "complexity_drivers": "Co-applicant consent/dedup handling undefined; no-partial-save vs. standard save-for-later conflict unresolved; two-party attestation workflow has no grounded e-signature pattern.",
+    "skills_needed": "Salesforce admin/declarative developer, OmniStudio configuration.",
+    "risks": "Co-applicant PII capture with no independent consent step; e-signature formality bar unconfirmed with Legal.",
+    "confidence": "Assumed"
+  },
+  {
+    "item_id": "E04",
+    "item_type": "epic",
+    "t_shirt_size": "L",
+    "size_drivers": {
+      "data_model": {"tier": "M", "signal": "New Panel Score child object with Field Audit Trail enabled; 1-3 related objects."},
+      "sharing_security": {"tier": "L", "signal": "External login-based Experience Cloud licensing and sharing model for 5 non-Salesforce panellists [KA-10444]."},
+      "ui": {"tier": "M", "signal": "Grantmaking Experience Cloud reviewer workspace plus prep-pack generation/distribution for all 11 panellists [KA-9511]."},
+      "automation": {"tier": "M", "signal": "Score-lock validation/Flow mechanism, under/over-$50K routing logic."}
+    },
+    "size_rationale": "L -- dominant driver is the external-reviewer licensing and sharing model, with a breadth bump from three concurrent M dimensions (data model, UI, automation) around it.",
+    "complexity_drivers": "New license type to procure/budget; panel-scoring editability conflict requires a lock mechanism; prep-pack generation is a net-new automation; panel cadence (quarterly vs. twice-yearly) unresolved and affects licensing cost model.",
+    "skills_needed": "Salesforce admin/declarative developer, Experience Cloud configuration, Field Audit Trail setup.",
+    "risks": "External licensing is a real new cost not yet budgeted; score-editability conflict unresolved; panel cadence conflict affects license consumption math.",
+    "confidence": "Assumed",
+    "size_if_assumption_breaks": "L; could compress to M if the client declines the external reviewer workspace and keeps panellists off-platform."
+  },
+  {
+    "item_id": "E05",
+    "item_type": "epic",
+    "t_shirt_size": "XL",
+    "size_drivers": {
+      "integration": {"tier": "XL", "signal": "Multi-system integration (SAP vendor master + EFT/payment gateway + registry validation callout), middleware recommended, retry/idempotency handling required for financial transactions [KA-9482], [KA-0039]."},
+      "sharing_security": {"tier": "M", "signal": "Shield Platform Encryption on bank account, ABN, and tax reference fields."},
+      "automation": {"tier": "M", "signal": "Staged-disbursement data model plus one-time migration of ~20 existing grants from a spreadsheet; held-payment retry workflow."}
+    },
+    "size_rationale": "XL -- dominant driver is integration complexity across three external systems handling real money, with no grounded pattern yet for the vendor-identity validation mechanism itself.",
+    "complexity_drivers": "Integration topology itself is unresolved (Salesforce-to-gateway vs. Salesforce-to-SAP-only); payment gateway identity unknown; no grounded KB pattern for ABN/registry validation; idempotency/double-payment risk on retries; three-team ownership (Comms/AP/Legal) with no named owner.",
+    "skills_needed": "Integration architect/developer, Apex developer, Salesforce admin, security review for Shield Encryption.",
+    "risks": "Architecture cannot be finalized until the integration topology and gateway identity are confirmed -- this is the single largest open risk in the engagement.",
+    "confidence": "Unknown",
+    "size_if_assumption_breaks": "XL regardless of which topology is confirmed, but the specific integration pattern (and therefore the build approach) cannot be finalized until G0501/G0504 are resolved -- treat this as a genuinely wide band until then."
+  },
+  {
+    "item_id": "E06",
+    "item_type": "epic",
+    "t_shirt_size": "M",
+    "size_drivers": {
+      "automation": {"tier": "M", "signal": "Due-date field plus a scheduled Flow driving a three-tier chase/escalate sequence (recipient -> CML -> Head of Communications)."},
+      "data_volume": {"tier": "n/a", "signal": "Historical backfill of ~5 years of audit-report status is a scope decision not yet confirmed; sizing assumes no backfill."}
+    },
+    "size_rationale": "M -- a straightforward scheduled-Flow escalation pattern; could grow if a structured intake mechanism or historical backfill is confirmed in scope.",
+    "complexity_drivers": "Requirements document describes only a single escalation tier against the three-tier model actually wanted; whether structured intake (not just tracking) is in scope is unresolved; CML reassignment on staff turnover undefined.",
+    "skills_needed": "Salesforce admin/declarative developer.",
+    "risks": "If a structured intake mechanism or 5-year historical backfill is confirmed in scope, size moves up.",
+    "confidence": "Assumed",
+    "size_if_assumption_breaks": "M; L if structured audit-report intake (not just tracking/escalation) and/or 5-year historical backfill are confirmed in scope."
+  }
+]
