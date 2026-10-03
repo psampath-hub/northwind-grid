@@ -13,7 +13,7 @@
     "strategy": "complete",
     "requirements": "complete",
     "design": "complete",
-    "roadmap": "not-started",
+    "roadmap": "complete",
     "efficiency": "not-started",
     "estimate": "not-started",
     "commercials": "not-started",
@@ -32,7 +32,26 @@
       "source": "Discovery Interview - Head of Comms, 12 Jun 2026",
       "note": "Business growth target driving urgency, not a committed project delivery date"
     },
-    "user_commitment": null
+    "user_commitment": null,
+    "derived": {
+      "derived_low_weeks": 13,
+      "derived_high_weeks": 28,
+      "derivation_source": "top-down-shape",
+      "basis": "Experience Cloud Standard-portal row (14-20wk baseline, 6 epics 4M/1L/1XL) + 15% regulated/audit-trail adder (E04, E06) + 10% custom-UI adder (E01-E03 OmniStudio forms) + 10% confidence widening (E05 Unknown)",
+      "ai_native_compressed": false,
+      "range_drivers": [
+        {
+          "epic_id": "E05",
+          "driver": "Unknown confidence -- integration topology (Salesforce-to-gateway vs. Salesforce-to-SAP-only) and payment gateway identity both unresolved",
+          "tighten_with": "Resolve the integration topology and gateway identity with Rachel/AP"
+        },
+        {
+          "epic_id": "E04",
+          "driver": "External reviewer licensing model needs procurement sign-off",
+          "tighten_with": "Confirm whether Northwind Grid will procure Experience Cloud login-based licenses for the 5 external panellists"
+        }
+      ]
+    }
   },
   "salesforce_link": {
     "status": "deferred",
@@ -43,6 +62,6 @@
     "dsr_url": null,
     "account_name": null,
     "linked_at": null,
-    "last_nudged_at": "2026-10-01"
+    "last_nudged_at": "2026-10-03"
   }
 }

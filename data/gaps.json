@@ -490,5 +490,17 @@
     "category": "Assumption",
     "gap_or_question": "Design proposes a validation-rule/Flow lock that blocks panel-score edits once a case reaches its final decision stage, as a mechanism that resolves G0406's editability conflict regardless of which reading (editable-until-decision vs. immutable) the client confirms -- both readings agree a score shouldn't change after the decision point, they only disagree on when that point is. The exact lock trigger (case status change, a specific field, panel sign-off) still needs client confirmation.",
     "impact_or_notes": "[assumption: lock-after-decision mechanism and trigger point -- validate by confirming with Rachel/Legal exactly which case-status transition should trigger the lock, once G0406 itself is resolved.]"
+  },
+  {
+    "gap_id": "G0116",
+    "category": "Assumption",
+    "gap_or_question": "Roadmap carries the Public Sector Grantmaking module license as a named Phase 0 dependency -- the org does not have this module provisioned today, and the entire architecture (Form Framework, the Grantmaking Experience Cloud site) rests on it being available. This duplicates G0114's substance but is tracked separately here because it now gates a specific roadmap phase (Phase 0) and timeline risk, not just the architecture skeleton.",
+    "impact_or_notes": "If this license isn't available or takes longer than expected to procure, Phase 0 doesn't close and every downstream phase slips. Confirm with Northwind Grid's Salesforce account team before Phase 1 kicks off."
+  },
+  {
+    "gap_id": "G0518",
+    "category": "Assumption",
+    "gap_or_question": "Roadmap carries the Grant Disbursement integration topology and payment gateway identity as a named Phase 0 dependency gating Phase 2 (E05) -- this duplicates G0501/G0504's substance but is tracked separately here because it now gates a specific roadmap phase and is the single largest driver of the derived timeline's high end.",
+    "impact_or_notes": "Phase 2 cannot be sized or built with confidence until this resolves. This is the top risk to chase down first in Phase 0."
   }
 ]

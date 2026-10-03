@@ -2,31 +2,40 @@
   "sessions": [
     {
       "date": "2026-10-01",
-      "skills_used": ["setup", "discover"],
+      "skills_used": [
+        "setup",
+        "discover"
+      ],
       "summary": "Ingested CCF High Level Requirements, discovery interview transcript (briefed), EOI/Full Application forms, brand assets, and the org-wide Health Assessment. Produced the Discovery Brief covering the Community Care Fund rebuild.",
       "friction": [
         "Org Health Assessment and EOI/Application PDFs were image-only (scanned slide exports) requiring poppler/pdftoppm install for page-image extraction.",
-        "WebSearch tool unavailable in this environment (Bedrock/Vertex policy blocks it) — research relied on central KB plus model knowledge, flagged as unverified where appropriate."
+        "WebSearch tool unavailable in this environment (Bedrock/Vertex policy blocks it) \u2014 research relied on central KB plus model knowledge, flagged as unverified where appropriate."
       ],
       "decisions": [
         {
           "decision": "Scope this engagement to the Community Care Fund rebuild only; the separate 45-finding Org Health Assessment is current-state context for design, not in-scope remediation work.",
           "rationale": "Client confirmed; the two documents are distinct workstreams from different dates with no cross-reference in the interview.",
-          "rejected": ["Bundling selected high-priority Health Assessment fixes into CCF scope"]
+          "rejected": [
+            "Bundling selected high-priority Health Assessment fixes into CCF scope"
+          ]
         },
         {
-          "decision": "Defined 'special project' exception policy is a client-owned decision (Rachel + Legal), not Salesforce build scope — Salesforce only provides enforcement/audit structure once the policy exists.",
+          "decision": "Defined 'special project' exception policy is a client-owned decision (Rachel + Legal), not Salesforce build scope \u2014 Salesforce only provides enforcement/audit structure once the policy exists.",
           "rationale": "Client explicitly chose this framing over having Scopezilla help define the policy itself.",
-          "rejected": ["Treating the policy definition itself as in-scope gap analysis"]
+          "rejected": [
+            "Treating the policy definition itself as in-scope gap analysis"
+          ]
         },
         {
-          "decision": "Treated the CCF High Level Requirements workbook as mostly as-built (current implementation) with some forward gaps (e.g. REQ-30 'Funded – Payment Held'), not a greenfield to-be spec.",
+          "decision": "Treated the CCF High Level Requirements workbook as mostly as-built (current implementation) with some forward gaps (e.g. REQ-30 'Funded \u2013 Payment Held'), not a greenfield to-be spec.",
           "rationale": "Client confirmed CCF already runs on Salesforce today.",
-          "rejected": ["Treating HLR as a target/to-be spec requiring net-new build throughout"]
+          "rejected": [
+            "Treating HLR as a target/to-be spec requiring net-new build throughout"
+          ]
         }
       ],
       "open_threads": [
-        "Panel cadence discrepancy: interview says quarterly, EOI form says twice-yearly (March/September) — client leans toward the form being accurate but wants it flagged as a question for the coach/client to formally confirm.",
+        "Panel cadence discrepancy: interview says quarterly, EOI form says twice-yearly (March/September) \u2014 client leans toward the form being accurate but wants it flagged as a question for the coach/client to formally confirm.",
         "Website-to-case-creation automation mechanics for the ~60% web-form intake path are undocumented.",
         "AP-owned EFT/payment gateway platform identity is unknown.",
         "No data migration volumes or requirements discussed yet.",
@@ -42,7 +51,9 @@
     },
     {
       "date": "2026-10-02",
-      "skills_used": ["strategy"],
+      "skills_used": [
+        "strategy"
+      ],
       "summary": "Full strategy run -- strategic context, approved vision statement, and business case for the CCF rebuild. Skipped research (Discovery Brief already carried sufficient client-specific detail).",
       "friction": [],
       "decisions": [
@@ -54,7 +65,9 @@
         {
           "decision": "Revised the initial 4th strategic priority (platform scale-readiness) out of the ranked list and replaced it with 'give external panellists a proper review workspace' -- scale-readiness was an outcome-level framing already captured in the vision and current-state challenges, not a peer-level fix.",
           "rationale": "User asked to focus on strategic priorities before approving; caught a mixed-abstraction-level list on self-review (MECE constraint) and fixed it before presenting.",
-          "rejected": ["Keeping platform scale-readiness as a 4th ranked priority alongside the three specific gap-closures"]
+          "rejected": [
+            "Keeping platform scale-readiness as a 4th ranked priority alongside the three specific gap-closures"
+          ]
         }
       ],
       "open_threads": [
@@ -66,7 +79,9 @@
     },
     {
       "date": "2026-10-02",
-      "skills_used": ["requirements"],
+      "skills_used": [
+        "requirements"
+      ],
       "summary": "Defined 6 epics (E01 Intake & Case Creation, E02 Eligibility Screening, E03 Full Application Capture, E04 Review & Panel Decisioning, E05 Grant Disbursement, E06 Post-Funding Audit Tracking) and ran gap analysis via 6 parallel epic-analyst agents. Saved epics.json (6 epics) + gaps.json (79 gaps: 8 Source Conflict, 30 Missing Requirement, 10 Logical Gap, 9 Ambiguity, 7 Capability Gap, 10 Potential Risk, 5 Assumption).",
       "friction": [],
       "decisions": [
@@ -78,12 +93,16 @@
         {
           "decision": "Demoted HLR Capabilities 6-8 (REQ-35 through REQ-45 -- generic governance/compliance/data-quality/usability boilerplate) to gaps rather than epic-izing them.",
           "rationale": "No concrete process, owner, or metric behind any of these requirements -- a stub per the persona's 'a stub is a gap, not scope' rule.",
-          "rejected": ["Creating a 7th epic for platform governance/compliance boilerplate"]
+          "rejected": [
+            "Creating a 7th epic for platform governance/compliance boilerplate"
+          ]
         },
         {
           "decision": "Recommended a Phase 0 to the client given 79 gaps and 8 source conflicts, both clearing the stated thresholds.",
           "rationale": "User chose this over proceeding straight to design; several gaps (2-year rule wording, panel cadence, SAP integration topology, payment gateway identity, scoring editability) are load-bearing to sizing and shouldn't be guessed at in design.",
-          "rejected": ["Proceeding straight to design with all gaps carried as disclosed assumptions"]
+          "rejected": [
+            "Proceeding straight to design with all gaps carried as disclosed assumptions"
+          ]
         }
       ],
       "open_threads": [
@@ -99,7 +118,9 @@
     },
     {
       "date": "2026-10-02",
-      "skills_used": ["requirements"],
+      "skills_used": [
+        "requirements"
+      ],
       "summary": "Turned all 79 gaps.json entries into client-facing questions, written into outputs/00-discovery-brief.md's Open Questions section (grouped: 8 source conflicts first, then missing requirements, ambiguities, risks, capability questions, assumptions, plus the 3 pre-existing non-requirements open items). Also stripped internal [KA-XXXX] provenance tags found in the brief's Research Findings section (pre-existing, from an earlier session) per the no-internal-provenance rule.",
       "friction": [
         "validate-data.py flagged 13 pricing-leak false positives in the brief -- all are client business dollar figures (grant amounts, $50K/$100K review thresholds) from discovery, not invented Salesforce engagement pricing. Judged non-blocking and proceeded; noted for awareness."
@@ -113,7 +134,9 @@
     },
     {
       "date": "2026-10-03",
-      "skills_used": ["design"],
+      "skills_used": [
+        "design"
+      ],
       "summary": "Produced the architecture skeleton and T-shirt estimates for all 6 epics, saved to outputs/01-solution.md and data/estimates.json. Base pattern: Public Sector Grantmaking module (Platform + Experience Cloud). Ran targeted central-KB searches for the two gaps the earlier requirements pass left ungrounded (ABN/registry validation, 2km polygon boundary pattern) -- both confirmed genuinely ungrounded (no on-point atom on an in-scope cloud) rather than assumed covered.",
       "friction": [
         "validate-data.py again flagged a pricing-leak false positive in 01-solution.md (the client's own $50K panel-routing threshold) -- same judgment as the prior session, non-blocking."
@@ -127,7 +150,9 @@
         {
           "decision": "Recommended a validation-rule/Flow lock on panel scores that resolves the editability source conflict (G0406) regardless of which reading the client confirms -- both readings agree a score shouldn't change after the decision point, they only disagree on when that point is.",
           "rationale": "Lets the architecture proceed without waiting on G0406's resolution, since the mechanism is correct either way; only the exact trigger point still needs confirming.",
-          "rejected": ["Waiting on G0406 resolution before designing any score-integrity mechanism"]
+          "rejected": [
+            "Waiting on G0406 resolution before designing any score-integrity mechanism"
+          ]
         }
       ],
       "open_threads": [
@@ -139,13 +164,40 @@
         "Run roadmap to phase the epics and derive a top-down duration range.",
         "Resolve E05's integration topology and gateway identity before this size can be finalized with confidence."
       ]
+    },
+    {
+      "date": "2026-10-04",
+      "skills_used": [
+        "roadmap"
+      ],
+      "summary": "Derived a benchmark-based duration range (13-28 weeks, Experience Cloud standard-portal pattern + risk adders) and built a 4-phase roadmap (Phase 0 discovery/dependency resolution, Phase 1 core case lifecycle, Phase 2 disbursement, Phase 3 panel integrity + audit tracking). Carried the two user-named dependencies (Public Sector Grantmaking licensing, E05 integration topology/gateway identity) as explicit Phase 0 gating items.",
+      "friction": [
+        "validate-data.py repeated the same pricing-leak false positives from prior sessions (client business dollar thresholds) -- no new issues; non-blocking per established judgment."
+      ],
+      "decisions": [
+        {
+          "decision": "Isolated Grant Disbursement (E05) as its own phase (Phase 2) rather than bundling it with other epics, given its XL size and Unknown confidence.",
+          "rationale": "User asked that the integration topology/gateway dependency be carried as a named item gating this specific work; isolating it into its own phase makes that gate explicit and visible.",
+          "rejected": [
+            "Bundling E05 into Phase 1 alongside the other build epics"
+          ]
+        }
+      ],
+      "open_threads": [
+        "No Org62 connection and no delivered-analog engagement supplied this session -- the parametric row stands un-reconciled against a real comparable. Naming one would tighten the 13-28 week range.",
+        "E04 and E05 both carry dependencies with their own lead time (license procurement, integration topology confirmation) that should start in Phase 0 even though their build work happens later."
+      ],
+      "next_steps": [
+        "Run estimate for the named roster (who delivers it, with defensible counts, per lane).",
+        "Resolve Phase 0 items -- especially the 8 source conflicts and the two named dependencies -- before Phase 1 build work starts."
+      ]
     }
   ],
   "preferences": {
     "terminology": {
-      "CCF": "Community Care Fund — the grant program being rebuilt",
-      "CML": "Community Marketing Lead — the 4 regional staff who triage eligibility and chase applications",
-      "EOI": "Expression of Interest — Stage 1 of the two-stage CCF application process",
+      "CCF": "Community Care Fund \u2014 the grant program being rebuilt",
+      "CML": "Community Marketing Lead \u2014 the 4 regional staff who triage eligibility and chase applications",
+      "EOI": "Expression of Interest \u2014 Stage 1 of the two-stage CCF application process",
       "two-kilometre rule": "Eligibility criterion requiring a project be within 2km of a Northwind Grid asset (substation, transmission corridor)",
       "special project": "An undocumented, Head-of-Communications-discretion exception allowing re-application within 2 years of prior funding",
       "panel": "The 11-person approval body (6 internal, 5 external) that reviews grants over $50K",
@@ -157,16 +209,20 @@
     {
       "date": "2026-10-01",
       "area": "scope",
-      "decision": "CCF rebuild only — Org Health Assessment findings are design context, not in-scope deliverables.",
+      "decision": "CCF rebuild only \u2014 Org Health Assessment findings are design context, not in-scope deliverables.",
       "rationale": "Confirmed by client; the assessment covers the whole platform while this engagement targets one program.",
-      "rejected": ["CCF + selected remediation bundle"]
+      "rejected": [
+        "CCF + selected remediation bundle"
+      ]
     },
     {
       "date": "2026-10-01",
       "area": "scope",
       "decision": "'Special project' exception policy definition is deferred to the client (Rachel + Legal); Salesforce builds enforcement/audit structure only once that policy exists.",
       "rationale": "Client chose this over having Scopezilla help define the policy during gap analysis.",
-      "rejected": ["Treating policy definition as in-scope gap-analysis work"]
+      "rejected": [
+        "Treating policy definition as in-scope gap-analysis work"
+      ]
     }
   ]
 }
