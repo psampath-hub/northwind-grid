@@ -208,6 +208,26 @@
         "Run estimate for the named roster.",
         "Run export to package deliverables once the roster exists."
       ]
+    },
+    {
+      "date": "2026-10-04",
+      "skills_used": [
+        "export"
+      ],
+      "summary": "Exported the full deliverable package. Pre-export validator FAIL was the same recurring pricing-leak false positive (client business dollar thresholds, confirmed and cleared across every prior session) -- user confirmed to proceed. Built outputs/scoping-deliverables.xlsx (Epics, Gap Analysis, Estimates, Roadmap Phases sheets).",
+      "friction": [],
+      "decisions": [
+        {
+          "decision": "Proceeded past the validator pricing-leak FAIL after re-confirming with the user that all 15 flagged dollar figures are client business facts (grant thresholds), not invented pricing.",
+          "rationale": "This export skill treats a pricing leak as a hard stop by default; got explicit user sign-off given the established false-positive pattern rather than silently overriding the gate again.",
+          "rejected": []
+        }
+      ],
+      "open_threads": [],
+      "next_steps": [
+        "Run estimate for the named roster if/when needed.",
+        "Consider quantum-leap or backlog handoff once a delivery team or build tool is chosen."
+      ]
     }
   ],
   "preferences": {
