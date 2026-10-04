@@ -1,0 +1,389 @@
+{
+  "intents": [
+    {
+      "id": "INT-001",
+      "title": "Capture an Expression of Interest through every intake channel without losing it",
+      "epic_id": "E01",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "Every inbound application attempt -- by web form or email -- produces a trackable case immediately, closing the gap that has already caused two lost-application incidents reported to journalists."
+      },
+      "build_target": "- The public Expression of Interest web form creates a case on submission\n- An inbound email to any of the fund's known intake addresses creates a case immediately, independent of any auto-reply\n- A courtesy auto-reply may still redirect an emailed applicant to the web form, but it never substitutes for case creation\n- The case stores which channel it arrived through",
+      "guardrails": [
+        "Must not rely on the applicant acting on a redirect for a case to exist.",
+        "Must capture the raw inbound content (web fields or email body) on the case before any further processing."
+      ],
+      "out_of_scope": [
+        "Must not resolve which specific email addresses count as fund intake addresses -- that list is a client input, not a build decision.",
+        "Must not implement cross-channel duplicate detection (handled by INT-002)."
+      ],
+      "acceptance": "A community group emails the fund's shared inbox asking about a grant, without using the web form. A Community Marketing Lead opens the case queue the same day and finds a new case already created from that email, with the original message attached.",
+      "dependencies": {
+        "external": [
+          { "system": "Public-facing EOI web form", "need": "confirmed list of fund intake email addresses and the web form's field-to-case mapping", "owner": "Northwind Grid Communications team" }
+        ]
+      },
+      "grounding": {
+        "requirements": ["REQ-1", "REQ-2", "REQ-4"]
+      },
+      "open_questions": [
+        { "id": "Q-001", "question": "What are all the email addresses applicants currently use to reach the fund (shared inbox, direct staff emails, forum contacts)?", "resolver": "Rachel Doyle / Communications team", "answer": null },
+        { "id": "Q-002", "question": "Should the courtesy auto-reply to an email submission still redirect to the web form, or is a direct confirmation preferred now that the email itself creates a case?", "resolver": "Rachel Doyle", "answer": null }
+      ]
+    },
+    {
+      "id": "INT-002",
+      "title": "Route a new application to a Community Marketing Lead without manual triage",
+      "epic_id": "E01",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "A new case is assigned to a Community Marketing Lead automatically, balanced across the team's real capacity rather than a single static rule -- so a seasonal spike doesn't concentrate load on one person the way it did last year."
+      },
+      "build_target": "- Each new case is assigned to one of the four Community Marketing Leads based on current workload, not a fixed geography rule\n- Applications arriving via different channels for the same underlying applicant/project are flagged as likely duplicates for the assigned lead to review, rather than auto-merged",
+      "guardrails": [
+        "Must not route purely on an applicant's address if territory data isn't reliable -- the current geography-based routing is already known to be informal."
+      ],
+      "out_of_scope": [
+        "Must not auto-merge duplicate cases without human review."
+      ],
+      "acceptance": "During a bushfire-season surge, 60 EOIs arrive in two days. A Community Marketing Lead who was already handling a heavy caseload receives noticeably fewer new assignments than a colleague with a lighter load that week.",
+      "dependencies": {
+        "internal": ["INT-001"]
+      },
+      "grounding": {
+        "requirements": ["REQ-5", "REQ-8"]
+      },
+      "open_questions": [
+        { "id": "Q-003", "question": "What should count as a 'likely duplicate' across channels -- same organisation name, same project address, same contact email?", "resolver": "Rachel Doyle + a Community Marketing Lead", "answer": null }
+      ]
+    },
+    {
+      "id": "INT-003",
+      "title": "Check an application against the 2km proximity rule automatically",
+      "epic_id": "E02",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "The 2km-of-asset eligibility check runs automatically against stored asset locations, removing the manual external-tool lookup responsible for roughly 40% of today's eligibility disputes.",
+        "metric": { "baseline": "~40% of eligibility disputes trace to the 2km boundary check", "target": "materially reduced dispute rate on this specific criterion", "window": "first full review cycle post go-live" }
+      },
+      "build_target": "- An application's stated project location is checked against Northwind Grid's known asset locations\n- The system records a pass/fail result for this criterion plus the measured distance, visible to the reviewer\n- A project close to the boundary (within a defined margin) is flagged for manual confirmation rather than auto-failed",
+      "guardrails": [
+        "Must not silently auto-reject a borderline case -- flag it for human review instead.",
+        "Must record the distance measured, not just pass/fail, so a disputed result can be explained."
+      ],
+      "out_of_scope": [
+        "Must not build a true polygon/boundary-shaped check for transmission corridors in this phase -- start with a point-radius check against asset coordinates; a boundary-shaped upgrade is a later decision if point-radius accuracy proves insufficient.",
+        "Must not resolve which external mapping tool (if any) the proximity check should integrate with -- confirm the asset-location data source first."
+      ],
+      "acceptance": "A community group submits an EOI for a project 1.9km from a substation. The eligibility check records a pass with the measured distance visible on the case, instead of a Community Marketing Lead needing to manually look it up in a separate tool.",
+      "grounding": {
+        "requirements": ["REQ-9"]
+      },
+      "open_questions": [
+        { "id": "Q-004", "question": "Is Geoscape confirmed as the authoritative source of Northwind Grid asset location data for this check, and in what format/location does that data live today?", "resolver": "Rachel Doyle + a Community Marketing Lead", "answer": null },
+        { "id": "Q-005", "question": "What margin of distance (e.g. within 100m of the 2km line) should trigger manual review instead of an automatic pass/fail?", "resolver": "Rachel Doyle", "answer": null }
+      ]
+    },
+    {
+      "id": "INT-004",
+      "title": "Enforce the 2-year re-application rule once its exact wording is confirmed",
+      "epic_id": "E02",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Unknown",
+      "surface": "automation",
+      "outcome": {
+        "summary": "An applicant's eligibility for re-application within 2 years of a prior application is checked consistently against one confirmed rule, rather than two conflicting readings in the source documents."
+      },
+      "build_target": "- The system checks an applicant's case history for a prior application within the last 2 years\n- The eligibility outcome records which specific rule reading was applied and why\n- A special-project exception, once the business defines its criteria, can override this check with a logged reason",
+      "guardrails": [
+        "Must not pick between the 'funded' and 'submitted' readings of the 2-year rule unilaterally -- this build target cannot be finalized until Northwind Grid confirms which one is correct."
+      ],
+      "out_of_scope": [
+        "Must not define what qualifies as a 'special project' exception -- that policy decision belongs to Northwind Grid and Legal, not this build."
+      ],
+      "acceptance": "An applicant who was rejected (not funded) 18 months ago re-applies. Depending on which rule Northwind Grid confirms, the system either passes or fails this applicant consistently, with the specific rule and reasoning visible on the case.",
+      "dependencies": {
+        "internal": ["INT-003"]
+      },
+      "grounding": {
+        "requirements": ["REQ-9"]
+      },
+      "open_questions": [
+        { "id": "Q-006", "question": "Does the 2-year re-application rule block an applicant whose prior application was merely submitted, or only one that was actually funded?", "resolver": "Rachel Doyle + Legal", "answer": null }
+      ]
+    },
+    {
+      "id": "INT-005",
+      "title": "Capture the Full Application with its real conditional-field logic",
+      "epic_id": "E03",
+      "phase": 1,
+      "priority": null,
+      "confidence": "Confirmed",
+      "surface": "experience-cloud",
+      "outcome": {
+        "summary": "An eligible applicant completes the Full Application -- including GST-conditional funding fields, an amount-changed-since-EOI check, and the required co-applicant and document checklist -- without the conditional logic being guessed at by the build."
+      },
+      "build_target": "- The GST status question branches to the correct funding-amount field\n- If the requested amount changed since the EOI, the applicant explains what changed, and the system compares the new quotes against the new amount\n- The applicant provides a co-applicant's name, position, email, and phone, with a declaration the co-applicant is aware of their inclusion\n- The system enforces the document checklist: two competitive quotes (or a justification for one), with letters of support and other documentation optional",
+      "guardrails": [
+        "Must capture the co-applicant's details even though no independent verification step exists yet for their consent."
+      ],
+      "out_of_scope": [
+        "Must not implement a dedicated e-signature product for the co-applicant attestation -- a typed-name-and-checkbox pattern is sufficient unless Legal says otherwise.",
+        "Must not support partial-save/resume on this form in this phase -- the current form explicitly states it cannot be saved partially; revisit only if Northwind Grid confirms otherwise."
+      ],
+      "acceptance": "An applicant whose requested amount increased since their EOI completes the Full Application, explains the change, and the system flags for the reviewer whether the two new quotes sum to the new requested amount.",
+      "dependencies": {
+        "internal": ["INT-003"]
+      },
+      "grounding": {
+        "requirements": ["REQ-12", "REQ-13", "REQ-14", "REQ-15"]
+      },
+      "open_questions": [
+        { "id": "Q-007", "question": "Should the Full Application support saving progress and resuming later, given its length and document requirements, despite the current form's 'no partial save' wording?", "resolver": "Rachel Doyle + Legal", "answer": null }
+      ]
+    },
+    {
+      "id": "INT-006",
+      "title": "Validate entity and bank details against the official business registry before sending a payment request to SAP",
+      "epic_id": "E05",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Unknown",
+      "surface": "integration",
+      "outcome": {
+        "summary": "An applicant's entered entity name is checked against the official business registry before a vendor-setup request ever reaches SAP, eliminating the entity-name mismatch that bounces roughly a third of approved applications back to the applicant after they've already been told they're approved.",
+        "metric": { "baseline": "~1/3 of applications bounce on entity-name mismatch during SAP vendor setup", "target": "mismatch bounce-back rate reduced toward zero", "window": "first full disbursement cycle post go-live" }
+      },
+      "build_target": "- When a Full Application captures entity and bank details, the entity name is checked against the official business registry\n- A mismatch is flagged to the applicant for correction before the application proceeds to disbursement, not after\n- Once validated, the entity and bank details are reused for any staged or split disbursements against the same grant",
+      "guardrails": [
+        "Must not send unvalidated entity/bank data onward to SAP."
+      ],
+      "out_of_scope": [
+        "Must not define the exact match tolerance (exact string match vs. fuzzy match) -- that ruleset needs confirming before this can be fully built.",
+        "Must not re-validate bank details automatically on every staged payment -- flag staleness only if a defined time threshold is set."
+      ],
+      "acceptance": "An applicant types 'The Foo Community Trust' as their entity name, but the official registry records 'Foo Community Trust Incorporated'. The system flags the mismatch to the applicant for correction before the award proceeds, instead of after SAP rejects the vendor setup.",
+      "grounding": {
+        "requirements": ["REQ-26", "REQ-27"]
+      },
+      "open_questions": [
+        { "id": "Q-008", "question": "What validation ruleset is intended -- exact match against the registry, a fuzzy-match tolerance, or a live lookup confirmed interactively with the applicant?", "resolver": "Rachel Doyle + Finance/AP", "answer": null }
+      ]
+    },
+    {
+      "id": "INT-007",
+      "title": "Send a validated payment request to SAP and track its vendor-setup outcome",
+      "epic_id": "E05",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Unknown",
+      "surface": "integration",
+      "outcome": {
+        "summary": "A validated grant award generates a single payment request to SAP, with SAP's resulting vendor/payment identifier written back to the case -- eliminating the duplicate manual vendor setup Finance and the fund team each do today."
+      },
+      "build_target": "- Once a grant is approved and the funding agreement is signed, the system generates a payment request to SAP covering recipient, amount, date, purpose, and GL/cost-centre coding\n- SAP's returned payment/vendor identifier is written back onto the case\n- The system prevents a duplicate payable from being created if the request is resent after a timeout",
+      "guardrails": [
+        "Must not allow a disbursement to exist in Salesforce with no matching payable in SAP -- no back-door payments.",
+        "Must guard against creating two SAP payables for one Salesforce disbursement record on a retried request."
+      ],
+      "out_of_scope": [
+        "Must not resolve whether Salesforce derives GL/cost-centre coding automatically or Finance appends it manually -- confirm with Finance/AP first."
+      ],
+      "acceptance": "A $75,000 grant is approved and the agreement signed. The case shows a single payment request sent to SAP, and once SAP processes it, the case displays SAP's vendor-setup confirmation -- with no second, duplicate request created even if the integration call is retried.",
+      "dependencies": {
+        "internal": ["INT-006"],
+        "external": [
+          { "system": "SAP (vendor master, Accounts Payable)", "need": "a confirmed integration surface for receiving payment requests and returning vendor-setup outcomes", "owner": "Northwind Grid Finance / Accounts Payable" }
+        ]
+      },
+      "grounding": {
+        "requirements": ["REQ-26", "REQ-28"]
+      },
+      "open_questions": [
+        { "id": "Q-009", "question": "Does Salesforce derive GL/cost-centre coding automatically, or does Finance/AP append it manually after receiving the request?", "resolver": "Finance/AP", "answer": null }
+      ]
+    },
+    {
+      "id": "INT-008",
+      "title": "Reflect the real payment outcome on the case, including a genuine held-payment state",
+      "epic_id": "E05",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Unknown",
+      "surface": "integration",
+      "outcome": {
+        "summary": "A case shows the true settlement outcome of a disbursement -- settled, pending, or genuinely held on failure -- so the fund team and recipient both know a payment has failed within days, not three weeks after the recipient calls."
+      },
+      "build_target": "- The case receives the disbursement outcome (settled / failed / pending) from whichever system actually reports it\n- A failed disbursement sets the case to a real 'Funded -- Payment Held' state, distinct from a successful 'Funded' state\n- A held payment notifies the Community Marketing Lead, with escalation if it isn't addressed",
+      "guardrails": [
+        "Must not leave a case showing 'Funded' once a payment has actually failed."
+      ],
+      "out_of_scope": [
+        "Must not build this integration until the topology is confirmed -- whether Salesforce integrates directly with the EFT/payment gateway, or only with SAP (which would then need to relay the outcome back). This is the single largest open item blocking this intent's build."
+      ],
+      "acceptance": "A recipient's bank account details are rejected by the payment gateway. Within the same business day, the case shows 'Funded -- Payment Held' and the assigned Community Marketing Lead has received a notification -- rather than the recipient discovering the failure by calling three weeks later.",
+      "dependencies": {
+        "internal": ["INT-007"],
+        "external": [
+          { "system": "AP-owned EFT/payment gateway (identity not yet confirmed)", "need": "confirmation of which system (SAP or the gateway directly) reports settlement outcomes to Salesforce, and what integration surface it exposes", "owner": "Northwind Grid Finance / Accounts Payable" }
+        ]
+      },
+      "grounding": {
+        "requirements": ["REQ-29", "REQ-30"]
+      },
+      "open_questions": [
+        { "id": "Q-010", "question": "Does Salesforce integrate directly with the EFT/payment gateway, or only with SAP (which relays the outcome)? What is the gateway's identity?", "resolver": "Rachel Doyle + Finance/AP", "answer": null }
+      ]
+    },
+    {
+      "id": "INT-009",
+      "title": "Track staged/milestone disbursements and migrate the existing spreadsheet",
+      "epic_id": "E05",
+      "phase": 2,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "Staged grant payments (signing / milestone / completion) are scheduled and reminded inside Salesforce, retiring the spreadsheet on one person's laptop that is today the only record of ~20 active staged grants."
+      },
+      "build_target": "- A grant with a staged payment schedule (e.g. 50% / 25% / 25%) records each stage as a separate disbursement tied to the same grant\n- The system reminds the assigned Community Marketing Lead ahead of each upcoming milestone date\n- The ~20 currently active staged grants are migrated from the existing spreadsheet into this structure before go-live",
+      "guardrails": [
+        "Must not go live without migrating the ~20 existing staged grants -- otherwise their schedules are lost."
+      ],
+      "out_of_scope": [],
+      "acceptance": "A grant with a milestone due in 10 days generates a reminder to the assigned Community Marketing Lead automatically, for a grant that was migrated from the prior spreadsheet and already has two of its three stages recorded.",
+      "dependencies": {
+        "internal": ["INT-007"]
+      },
+      "grounding": {
+        "requirements": ["REQ-31"]
+      },
+      "open_questions": []
+    },
+    {
+      "id": "INT-010",
+      "title": "Give the external review panel a workspace to score applications",
+      "epic_id": "E04",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "experience-cloud",
+      "outcome": {
+        "summary": "All 11 panel members -- including the 5 external reviewers who have no Salesforce access today -- score applications in one system, eliminating the spreadsheet-and-manual-transcription workaround that costs roughly 40 hours a year."
+      },
+      "build_target": "- The 5 external panellists log into an Experience Cloud site to review and score their assigned applications\n- The system distributes the review pack to all 11 panellists ahead of each review cycle\n- Each panellist scores an application against the program's defined criteria once those criteria are confirmed",
+      "guardrails": [
+        "Must not require the external panellists to use a full internal Salesforce seat."
+      ],
+      "out_of_scope": [
+        "Must not procure the Experience Cloud licenses -- that is a budget decision for Northwind Grid, not a build task.",
+        "Must not finalize the review-pack generation format until panel cadence (quarterly vs. twice-yearly) is confirmed, since it changes batch size per cycle."
+      ],
+      "acceptance": "An external panellist who has never used Salesforce before logs into the review site, opens their assigned batch of applications, and scores one against the program's criteria -- without anyone on the fund team manually transcribing their score afterward.",
+      "grounding": {
+        "requirements": ["REQ-20", "REQ-21", "REQ-22"]
+      },
+      "open_questions": [
+        { "id": "Q-011", "question": "Does the panel meet quarterly or twice a year (March/September)? This affects review-pack batch size and the external licensing cost model.", "resolver": "Rachel Doyle", "answer": null },
+        { "id": "Q-012", "question": "What are the program's five scoring criteria? Neither source document names them.", "resolver": "Rachel Doyle + panel chair", "answer": null },
+        { "id": "Q-013", "question": "Has Northwind Grid budgeted for the Experience Cloud login-based licenses this requires?", "resolver": "Rachel Doyle + Finance", "answer": null }
+      ]
+    },
+    {
+      "id": "INT-011",
+      "title": "Lock a panel score once the final decision is made, with a full change history",
+      "epic_id": "E04",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Confirmed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "A panel score cannot be changed after the point the panel's decision is final, and every change made before that point is permanently logged with who made it and when -- giving the fund a defensible record it cannot produce today."
+      },
+      "build_target": "- Every change to a panel score is logged with who made the change and when, before the lock point\n- Once a case reaches its final decision stage, its panel scores become permanently locked against further edits",
+      "guardrails": [
+        "Must not allow any score edit after the case reaches its final decision stage, regardless of role.",
+        "Must preserve the full change history even for scores that were corrected before the lock point."
+      ],
+      "out_of_scope": [],
+      "acceptance": "A panellist corrects a scoring typo the day after a panel meeting but before the final decision is recorded -- the correction is logged with their name and timestamp. A week later, after the decision is final, no one -- including an administrator -- can edit that score.",
+      "grounding": {
+        "requirements": ["REQ-21"]
+      },
+      "open_questions": [
+        { "id": "Q-014", "question": "What case-status transition marks a decision as 'final' and should trigger the score lock -- the panel's accept/reject recording, or a separate confirmation step?", "resolver": "Rachel Doyle + Legal", "answer": null }
+      ]
+    },
+    {
+      "id": "INT-012",
+      "title": "Route applications to the right review track by value and notify outcomes",
+      "epic_id": "E04",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "An application over $50,000 goes to panel review; one under $50,000 is decided by the Community Marketing Lead or Head of Communications -- and the Head of Communications is alerted only on the applications that actually need her, not every case reassignment."
+      },
+      "build_target": "- Applications are routed to panel review or direct CML/Head-of-Communications review based on the requested amount at the confirmed decision point\n- The Head of Communications is alerted only on applications above a confirmed value threshold, not on every reassignment\n- Approved and rejected applicants are notified of the outcome by email",
+      "guardrails": [
+        "Must not alert the Head of Communications on every case reassignment -- the current binary alert (about 40/week) is the problem this intent exists to fix."
+      ],
+      "out_of_scope": [
+        "Must not resolve what dollar figure the $50,000 threshold is measured against (requested amount, adjusted recommendation, or per-stage value) -- confirm with the business first."
+      ],
+      "acceptance": "A $35,000 application and a $200,000 application are both decided in the same week. The Head of Communications receives an alert about the $200,000 one; the $35,000 decision proceeds through the Community Marketing Lead without generating one of her 40 weekly case-reassignment emails.",
+      "dependencies": {
+        "internal": ["INT-010", "INT-011"]
+      },
+      "grounding": {
+        "requirements": ["REQ-16", "REQ-19", "REQ-23", "REQ-24", "REQ-25"]
+      },
+      "open_questions": [
+        { "id": "Q-015", "question": "What dollar figure determines the $50,000 panel-routing threshold, and what criteria should trigger a Head-of-Communications alert on an under-threshold application?", "resolver": "Rachel Doyle", "answer": null }
+      ]
+    },
+    {
+      "id": "INT-013",
+      "title": "Track the 2-year post-funding audit report and escalate automatically",
+      "epic_id": "E06",
+      "phase": 3,
+      "priority": null,
+      "confidence": "Assumed",
+      "surface": "automation",
+      "outcome": {
+        "summary": "The fund's public 2-year audit-report commitment is tracked automatically -- chasing the recipient, then escalating to a Community Marketing Lead, then to the Head of Communications -- replacing a manual calendar reminder that already produces an estimated 20% late-or-missing rate and cannot answer the regulator's 'evidence of monitoring' request today.",
+        "metric": { "baseline": "~20% of audit reports estimated late or missing (unverified estimate)", "target": "a defensible, system-tracked compliance rate, verified rather than estimated", "window": "first full 2-year cycle post go-live" }
+      },
+      "build_target": "- Each funded grant tracks its 2-year audit-report due date, starting from a confirmed trigger point for staged grants\n- The system automatically chases the recipient, then escalates to the assigned Community Marketing Lead, then to the Head of Communications if still unresolved\n- A case closes once an audit report is marked complete against a confirmed standard",
+      "guardrails": [
+        "Must not implement only the single escalation tier described in the requirements document -- the three-tier chase/escalate/escalate sequence is the actual intent, pending final confirmation."
+      ],
+      "out_of_scope": [
+        "Must not build a structured intake mechanism for how the audit report itself arrives -- this intent assumes a report lands on the case by whatever means and tracks/chases/escalates from there, unless Northwind Grid confirms otherwise.",
+        "Must not migrate the 5 years of historical audit-report data in this phase unless explicitly confirmed in scope."
+      ],
+      "acceptance": "A grant funded two years ago has not had its audit report marked complete. The system has already chased the recipient automatically, escalated to the assigned Community Marketing Lead, and -- since neither resolved it -- escalated to the Head of Communications, all without a manual calendar reminder.",
+      "dependencies": {
+        "internal": ["INT-009"]
+      },
+      "grounding": {
+        "requirements": ["REQ-32", "REQ-33", "REQ-34"]
+      },
+      "open_questions": [
+        { "id": "Q-016", "question": "Who formally decides an audit report is 'complete', and against what standard, especially where expectations differ by grant size?", "resolver": "Rachel Doyle", "answer": null },
+        { "id": "Q-017", "question": "For staged/milestone grants, does the 2-year audit clock start at first disbursement (signing) or the final disbursement (completion)?", "resolver": "Rachel Doyle + Finance", "answer": null }
+      ]
+    }
+  ]
+}

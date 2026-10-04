@@ -1,0 +1,42 @@
+[
+  {
+    "phase_number": 0,
+    "phase_name": "Discovery & Dependency Resolution",
+    "objectives": "Resolve the 8 source conflicts flagged in requirements (funded-vs-submitted re-application rule, panel cadence, panel-score editability, disbursement integration topology, email-intake behavior, EOI attachment wording, no-partial-save, audit escalation tiers); confirm the two named dependencies gating downstream build sizing -- Public Sector Grantmaking module licensing, and the Grant Disbursement integration topology plus payment gateway identity.",
+    "epics_included": "",
+    "success_criteria": "All 8 source conflicts have a client-confirmed answer or a conscious deferral logged in gaps.json; Public Sector Grantmaking licensing confirmed or an alternative base pattern selected; E05's integration topology (Salesforce-to-gateway vs. Salesforce-to-SAP-only) and gateway identity confirmed.",
+    "dependencies": "None -- this phase gates Phases 1-3.",
+    "risks": "If source conflicts aren't resolved before Phase 1 starts, build teams inherit ambiguity and risk building against the wrong reading; if Public Sector Grantmaking licensing isn't confirmed, the base architecture pattern may need to pivot mid-build.",
+    "kb_sources": []
+  },
+  {
+    "phase_number": 1,
+    "phase_name": "Core Case Lifecycle Hardening",
+    "objectives": "Close the reputational-risk gap in the email intake path, automate the 2km eligibility check, and harden Full Application capture with its conditional-field logic.",
+    "epics_included": "E01,E02,E03",
+    "success_criteria": "Every inbound application (web or email) reliably creates a case; the 2km check runs without manual lookup for the majority of cases; the Full Application's conditional-field logic (GST branching, amount reconciliation, document checklist) is built and validated.",
+    "dependencies": "Phase 0's resolution of the funded-vs-submitted rule (E02) and the no-partial-save conflict (E03).",
+    "risks": "De-duplication logic across intake channels is still undefined; Geoscape's identity as the CML's actual mapping tool is unverified.",
+    "kb_sources": ["[KA-3884]", "[KA-9719]", "[KA-14019]"]
+  },
+  {
+    "phase_number": 2,
+    "phase_name": "Grant Disbursement Integration",
+    "objectives": "Deliver Northwind Grid's #1 stated priority -- eliminate duplicate SAP vendor setup via a validated Salesforce-to-SAP data exchange.",
+    "epics_included": "E05",
+    "success_criteria": "Entity-name and bank-detail validation catches mismatches before they reach SAP; a genuine 'Funded - Payment Held' status reflects real payment-gateway outcomes.",
+    "dependencies": "Phase 0's resolution of the integration topology and payment gateway identity -- this phase cannot be built with confidence until that's confirmed. Isolated as its own phase given its size (XL) and because it carries the single largest open risk in the engagement.",
+    "risks": "Still Unknown confidence entering this phase if Phase 0 doesn't fully close the topology question; three-team ownership (Comms/AP/Legal) with no named accountable owner; no grounded KB pattern yet for the ABN/registry validation mechanism.",
+    "kb_sources": ["[KA-9482]", "[KA-0039]"]
+  },
+  {
+    "phase_number": 3,
+    "phase_name": "Panel Integrity, External Review & Audit Tracking",
+    "objectives": "Deliver priorities #2 and #3 -- a tamper-evident panel-scoring record, a reviewer workspace for the 5 external panellists, and automated three-tier audit-report tracking.",
+    "epics_included": "E04,E06",
+    "success_criteria": "Panel scores are locked after decision with a full change history; all 11 panellists score through one system; audit-report due dates are tracked and escalated without a manual calendar reminder.",
+    "dependencies": "Experience Cloud login-based license procurement for the 5 external panellists -- has its own lead time outside PS build time, so kicking off procurement during Phase 0 avoids it blocking this phase.",
+    "risks": "Panel cadence (quarterly vs. twice-yearly) affects the licensing cost model; whether structured audit-report intake is in scope (vs. tracking/escalation only) is still open.",
+    "kb_sources": ["[KA-9511]", "[KA-10444]"]
+  }
+]

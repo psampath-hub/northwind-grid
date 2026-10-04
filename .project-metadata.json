@@ -21,7 +21,7 @@
     "narratives": "complete",
     "export": "complete",
     "backlog": "not-started",
-    "quantum-leap": "not-started",
+    "quantum-leap": "complete",
     "slides": "not-started",
     "rfp": "not-started",
     "illuminate": "not-started"
@@ -63,5 +63,12 @@
     "account_name": null,
     "linked_at": null,
     "last_nudged_at": "2026-10-03"
-  }
+  },
+  "target_org": {
+    "name": "Northwind Grid CCF Sandbox",
+    "type": "sandbox",
+    "state": "brownfield",
+    "build_allowed": true
+  },
+  "quantum_leap_blueprint": "Mixed / no single blueprint fits"
 }

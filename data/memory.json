@@ -228,6 +228,34 @@
         "Run estimate for the named roster if/when needed.",
         "Consider quantum-leap or backlog handoff once a delivery team or build tool is chosen."
       ]
+    },
+    {
+      "date": "2026-10-04",
+      "skills_used": [
+        "quantum-leap"
+      ],
+      "summary": "Generated the build-handoff bundle for all 4 phases, targeting a brownfield sandbox (Northwind Grid CCF Sandbox). No single Meshmesh blueprint fit (live docs show only Sales Cloud-specific blueprints) -- used Mixed/Custom. Drafted 13 intents across Phases 1-3 (Phase 0 is discovery-only, zero intents by design) and persisted them to data/intents.json.",
+      "friction": [
+        "Pulled live Meshmesh docs (docs.meshmesh.io/llms-full.txt) and confirmed none of the 3 named blueprints fit a Public Sector Grantmaking engagement -- all three are Sales Cloud-specific.",
+        "Clouds-in-scope rendered empty (\"--\") in 00-agent-brief.md because .project-metadata.json.products_in_scope was never populated at discover time (Public Sector Grantmaking is not in that skills product-detection list). Cosmetic only -- the actual clouds (Platform, Experience Cloud) are correctly named throughout the phase briefs and intents."
+      ],
+      "decisions": [
+        {
+          "decision": "INT-008 (real settlement-outcome tracking) is explicitly marked out-of-scope-to-build in its own intent until the integration topology and gateway identity are confirmed in Phase 0 -- rather than drafting a build target against an assumption.",
+          "rationale": "The topology conflict (Salesforce-to-gateway vs. Salesforce-to-SAP-only) is the single largest open risk in the engagement; building ahead of its resolution would waste build-agent effort on the wrong integration shape.",
+          "rejected": [
+            "Drafting INT-008 against the Salesforce-to-SAP-only assumption and treating the direct-gateway path as a stretch goal"
+          ]
+        }
+      ],
+      "open_threads": [
+        "8 Plan-mode questions in Phase 0 (and echoed in Phases 1-3 as carried-forward items) must be resolved before build work on the affected intents can proceed with confidence.",
+        "Experience Cloud licensing budget for the 5 external panellists (INT-010) is still unconfirmed with Northwind Grid."
+      ],
+      "next_steps": [
+        "Walk the Plan-mode questions with Rachel Doyle before handing the bundle to a build agent for Phase 1.",
+        "Confirm the Public Sector Grantmaking license and the E05 integration topology before Phase 2 build work begins."
+      ]
     }
   ],
   "preferences": {
